@@ -14,7 +14,7 @@ import java.util.Map;
  */
 
 public interface PushService {
-    void pushMessage(ConversationType type, Long cvId, Map data, List<IgnoreUserPlatformDto> ignoreList);
+    void pushMessage(ConversationType type, Long cvId, String data, List<IgnoreUserPlatformDto> ignoreList);
 
     void pushMessageIgnorePlatform(Long userId, Integer ignorePlatform, PushDataDto data);
 

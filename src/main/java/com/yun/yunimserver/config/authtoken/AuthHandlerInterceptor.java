@@ -103,7 +103,7 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Headers", "*");
         response.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
-        response.setHeader("content-type", "application/json");
+        response.setHeader("contentJson-type", "application/json");
         response.setHeader("Access-Control-Allow-Methods", "*");
         response.setStatus(401);
     }

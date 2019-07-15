@@ -69,4 +69,12 @@ public class ConversationMessage extends BaseEntityWithGlIdDate {
         //
         // return map;
     }
+
+    @JsonIgnore
+    public String gJsonValue() {
+        String js = JsonHelper.toStr(this);
+        return js;
+        // Map maps = (Map) JSON.parse(js);
+        // return maps;
+    }
 }

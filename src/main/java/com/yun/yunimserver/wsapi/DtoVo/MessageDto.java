@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: yun
@@ -20,7 +19,7 @@ public class MessageDto {
     @Length(max = 200)
     private String clientGroupId;
 
-    private Map content;
+    private String contentJson;
 
     private List<IgnoreUserPlatformDto> ignoreList;
 }

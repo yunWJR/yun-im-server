@@ -160,7 +160,7 @@ public class CoupleServiceImpl extends BaseServiceImpl implements CoupleService 
         }
         // pushService.pushMessageIgnorePlatform(anotherUserId, ClientPlatformType.Unknown.getType(), pushDataDto);
 
-        pushService.pushMessage(ConversationType.Couple, cp.getId(), msg.gMapValue(), null);  // todo
+        pushService.pushMessage(ConversationType.Couple, cp.getId(), msg.gJsonValue(), null);  // todo
 
         return msg;
     }

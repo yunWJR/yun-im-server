@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: yun
@@ -26,11 +25,11 @@ public class PushServiceImpl implements PushService {
     WsApiServiceImpl wsApiService;
 
     @Override
-    public void pushMessage(ConversationType type, Long cvId, Map data, List<IgnoreUserPlatformDto> ignoreList) {
+    public void pushMessage(ConversationType type, Long cvId, String data, List<IgnoreUserPlatformDto> ignoreList) {
         MessageDto dto = new MessageDto();
         dto.setIgnoreList(ignoreList);
         dto.setClientGroupId(cvId.toString());
-        dto.setContent(data);
+        dto.setContentJson(data);
 
         wsApiService.pushMessage(dto);
     }

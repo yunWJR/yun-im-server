@@ -170,7 +170,7 @@ public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
 
         PushDataDto pushDataDto = new PushDataDto(msg);
 
-        pushService.pushMessage(ConversationType.Group, group.getId(), msg.gMapValue(), null);  // todo
+        pushService.pushMessage(ConversationType.Group, group.getId(), msg.gJsonValue(), null);  // todo
 
         // for (Long userId : groupUserIds) {
         //     if (userId.equals(sUser.getId())) {
