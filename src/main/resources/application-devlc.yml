@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/ims?characterEncoding=utf8&useSSL=false
+    username: root
+    password: Yun123
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 2000
+    initialSize: 20
+  #        maxWait: 60000
+  #        minIdle: 1
+  #        timeBetweenEvictionRunsMillis: 60000
+  #        minEvictableIdleTimeMillis: 300000
+  #        validationQuery: select 'x'
+  #        testWhileIdle: true
+  #        testOnBorrow: false
+  #        testOnReturn: false
+  #        poolPreparedStatements: true
+  #        maxOpenPreparedStatements: 20
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database: mysql
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    format_sql: true
+server:
+  port: 7102
+  name: imservice
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 10000
+    max-connections: 10000
+
+task:
+  removeDataDay: 7
+  removeCashHour: 24
+
+snowflakeidworker:
+  workerid: 0
+  datacenterid: 1
+
+logging:
+  level:
+    root: info
