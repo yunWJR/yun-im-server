@@ -189,7 +189,7 @@ public class ConversationServiceImpl extends BaseServiceImpl implements Conversa
         if (userMsgList.size() > 0) {
             vo.setLastTime(userMsgList.get(0).getCreateTime());
         } else {
-            vo.setLastTime(0L);
+            vo.setLastTime(lastTime == null ? 0 : lastTime);
         }
 
         // 按ConversationId分组

@@ -68,7 +68,9 @@ public class GroupController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "groupId", value = "groupId", required = true, dataType = "string"),
     })
-    public BaseRstBeanT<List<GroupInfoVo>> mebListInChatGroup(@PathVariable @NotNull Long chatGroupId) {
+    public BaseRstBeanT<List<GroupInfoVo>> mebListInChatGroup(
+            @PathVariable @NotNull Long chatGroupId,
+            @RequestParam Long lastUpdateTime) {
         return new BaseRstBeanT<>(groupService.getChatGroupUserList(chatGroupId));
     }
 

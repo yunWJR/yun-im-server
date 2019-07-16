@@ -1,6 +1,5 @@
 package com.yun.yunimserver.module.imservice.entity;
 
-import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -16,7 +15,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import java.util.Map;
 
 /**
  * @author: yun
@@ -49,32 +47,8 @@ public class ConversationMessage extends BaseEntityWithGlIdDate {
     }
 
     @JsonIgnore
-    public Map gMapValue() {
-        // todo 为了保持格式统一，转换两次，效率低
-        String js = JsonHelper.toStr(this);
-
-        Map maps = (Map) JSON.parse(js);
-        return maps;
-
-        // BeanMap bMap = new BeanMap(this);
-        //
-        // Map map = new HashMap();
-        // for (Object key : bMap.keySet()) {
-        //     if ("class".equals(key)) {
-        //         continue;
-        //     }
-        //
-        //     map.put(key, bMap.get(key));
-        // }
-        //
-        // return map;
-    }
-
-    @JsonIgnore
     public String gJsonValue() {
         String js = JsonHelper.toStr(this);
         return js;
-        // Map maps = (Map) JSON.parse(js);
-        // return maps;
     }
 }
