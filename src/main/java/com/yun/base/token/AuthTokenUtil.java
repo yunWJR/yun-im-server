@@ -126,7 +126,7 @@ public class AuthTokenUtil {
                 builder = builder.setClaims(payload.getClaims());
             }
 
-            // 添加 clientUserId 为 subject
+            // 添加 extraUserId 为 subject
             // //sub(Subject)：代表这个JWT的主体，即它的所有人
             if (payload.getUserId().length() > 0) {
                 builder = builder.setSubject(payload.getUserId());

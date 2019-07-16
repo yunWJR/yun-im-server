@@ -5,12 +5,10 @@ import com.yun.base.jpa.Repository.RepositoryHelper;
 import com.yun.base.module.Bean.BaseRstBeanHelper;
 import com.yun.base.module.Bean.BaseRstModuleType;
 import com.yun.base.module.Bean.RstBeanException;
-import com.yun.base.token.AuthTokenPayload;
 import com.yun.base.token.AuthTokenUtil;
 import com.yun.yunimserver.module.BaseServiceImpl;
 import com.yun.yunimserver.module.userservice.dtovo.UserVo;
 import com.yun.yunimserver.module.userservice.entity.*;
-import com.yun.yunimserver.module.userservice.limit.UserUtil;
 import com.yun.yunimserver.util.RequestUtil;
 import com.yun.yunimserver.wsapi.DtoVo.ClientUserDto;
 import com.yun.yunimserver.wsapi.DtoVo.ClientUserLoginVo;
@@ -34,12 +32,13 @@ import java.util.List;
 public class UserServiceImpl extends BaseServiceImpl implements UserService {
     @Autowired
     WsApiServiceImpl wsApiService;
+
     @Autowired
     private UserJpa userJpa;
-    @Autowired
-    private UserUtil userUtil;
+
     @Autowired
     private AuthTokenUtil tokenUtil;
+
     private RepositoryHelper<User> svRpHlp = new RepositoryHelper<User>("用户");
 
     private BaseRstBeanHelper rstBeanHelper = new BaseRstBeanHelper(BaseRstModuleType.Service, "UserServiceImpI");
@@ -61,18 +60,16 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
     @Override
     public User updateUserInfo(UserInfo info) {
-        AuthTokenPayload token = AuthTokenUtil.getThreadLocalToken();
+        User lgUser = RequestUtil.getLoginUser();
 
-        User user = userUtil.getUser(token);
-
-        if (user.getUserInfo() == null) {
-            user.setUserInfo(new UserInfo());
+        if (lgUser.getUserInfo() == null) {
+            lgUser.setUserInfo(new UserInfo());
         }
 
         // 将 null 值取代
-        ObjectUtil.copyNonNullProperties(info, user.getUserInfo());
+        ObjectUtil.copyNonNullProperties(info, lgUser.getUserInfo());
 
-        return user;
+        return lgUser;
     }
 
     @Override
@@ -93,7 +90,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
         newUs = userJpa.save(newUs);
 
         ClientUserDto dto = new ClientUserDto();
-        dto.setClientUserId(newUs.getId().toString());
+        dto.setExtraUserId(newUs.getId().toString());
         ClientUserVo vo = wsApiService.addClientUser(dto);
 
         return newUs;
@@ -141,11 +138,9 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
     @Override
     public User getUserInfo() {
-        AuthTokenPayload token = AuthTokenUtil.getThreadLocalToken();
+        User lgUser = RequestUtil.getLoginUser();
 
-        User user = svRpHlp.findByGlId(userJpa, Long.valueOf(token.getUserId()));
-
-        return user;
+        return lgUser;
     }
 
     private User updateToken(User us) {

@@ -6,7 +6,6 @@ import com.yun.yunimserver.module.imservice.entity.ConversationType;
 import com.yun.yunimserver.wsapi.DtoVo.IgnoreUserPlatformDto;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author: yun

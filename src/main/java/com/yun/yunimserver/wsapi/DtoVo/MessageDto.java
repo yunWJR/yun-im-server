@@ -1,10 +1,9 @@
 package com.yun.yunimserver.wsapi.DtoVo;
 
+import com.yun.yunimserver.module.imservice.entity.ConversationType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -15,11 +14,25 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class MessageDto {
-    @NotBlank
-    @Length(max = 200)
-    private String clientGroupId;
+    private Long conversationId;
+
+    private String extraConversationId;
 
     private String contentJson;
 
+    private String contentString;
+
     private List<IgnoreUserPlatformDto> ignoreList;
+
+    public static MessageDto newItem(ConversationType type, Long cvId, String data, List<IgnoreUserPlatformDto> ignoreList) {
+        MessageDto dto = new MessageDto();
+
+        String extraId = String.format("%s_%s", type.getType(), cvId);
+        dto.setExtraConversationId(extraId);
+
+        dto.setContentJson(data);
+        dto.setIgnoreList(ignoreList);
+
+        return dto;
+    }
 }

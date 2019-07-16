@@ -16,7 +16,7 @@ import javax.validation.constraints.NotBlank;
 public class ClientUserDto {
     @NotBlank
     @Length(max = 200)
-    private String clientUserId;
+    private String extraUserId;
 
     @Length(max = 200)
     private String remark;

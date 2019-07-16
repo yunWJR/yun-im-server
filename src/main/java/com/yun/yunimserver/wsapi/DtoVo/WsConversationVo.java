@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class WsConversationVo {
+    private Long id;
+
     // @JsonUnwrapped
     // private Conversation conversation;
 

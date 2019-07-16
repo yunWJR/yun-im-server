@@ -2,8 +2,6 @@ package com.yun.yunimserver.module.imservice.service;
 
 import com.yun.base.Util.JrpUtil;
 import com.yun.base.module.Bean.RstBeanException;
-import com.yun.base.token.AuthTokenPayload;
-import com.yun.base.token.AuthTokenUtil;
 import com.yun.yunimserver.module.BaseServiceImpl;
 import com.yun.yunimserver.module.imservice.dtovo.ConversationVo;
 import com.yun.yunimserver.module.imservice.dtovo.GroupUserVo;
@@ -20,7 +18,6 @@ import com.yun.yunimserver.module.imservice.entity.usermessage.UserMessageJpa;
 import com.yun.yunimserver.module.userservice.entity.QUser;
 import com.yun.yunimserver.module.userservice.entity.User;
 import com.yun.yunimserver.module.userservice.entity.UserJpa;
-import com.yun.yunimserver.module.userservice.limit.UserUtil;
 import com.yun.yunimserver.module.userservice.service.UserServiceImpl;
 import com.yun.yunimserver.util.RequestUtil;
 import com.yun.yunimserver.wsapi.DtoVo.WsConversationDto;
@@ -51,9 +48,6 @@ public class CoupleServiceImpl extends BaseServiceImpl implements CoupleService 
 
     @Autowired
     private UserJpa userJpa;
-
-    @Autowired
-    private UserUtil userUtil;
 
     @Autowired
     private UserServiceImpl userServiceImpl;
@@ -97,11 +91,11 @@ public class CoupleServiceImpl extends BaseServiceImpl implements CoupleService 
         ConversationCouple newCp = new ConversationCouple(lgUser.getId(), tgUserId);
         conversationCoupleJpa.save(newCp);
 
-        WsConversationDto wsDto = new WsConversationDto();
-        wsDto.setClientGroupId(newCp.getId().toString());
-        wsDto.setClientUserId(new ArrayList<>());
-        wsDto.getClientUserId().add(newCp.getInfo().getCreateUserId().toString());
-        wsDto.getClientUserId().add(newCp.getInfo().getAnotherUserId().toString());
+        List<String> extraUserId = new ArrayList<>();
+        extraUserId.add(newCp.getInfo().getCreateUserId().toString());
+        extraUserId.add(newCp.getInfo().getAnotherUserId().toString());
+
+        WsConversationDto wsDto = WsConversationDto.newItem(ConversationType.Couple, newCp.getId(), extraUserId);
         WsConversationVo vo = wsApiService.createConversation(wsDto);
 
         return new ConversationVo(newCp, tgUser);
@@ -183,8 +177,7 @@ public class CoupleServiceImpl extends BaseServiceImpl implements CoupleService 
 
     @Override
     public GroupUserVo getChatCoupleUser(Long coupleId) {
-        AuthTokenPayload token = AuthTokenUtil.getThreadLocalToken();
-        User user = userUtil.getUser(token);
+        User lgUser = RequestUtil.getLoginUser();
 
         ConversationCouple cp = JrpUtil.findById(conversationCoupleJpa, coupleId);
 
@@ -193,7 +186,7 @@ public class CoupleServiceImpl extends BaseServiceImpl implements CoupleService 
         }
 
         Long userIdForInfo = null;
-        if (user.getId().equals(cp.getInfo().getCreateUserId())) {
+        if (lgUser.getId().equals(cp.getInfo().getCreateUserId())) {
             userIdForInfo = cp.getInfo().getAnotherUserId();
         } else {
             userIdForInfo = cp.getInfo().getCreateUserId();

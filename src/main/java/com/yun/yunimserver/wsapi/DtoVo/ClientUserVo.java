@@ -11,7 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ClientUserVo {
-    private String clientUserId;
+    private Long id;
+
+    private String extraUserId;
 
     private Long createTime;
 

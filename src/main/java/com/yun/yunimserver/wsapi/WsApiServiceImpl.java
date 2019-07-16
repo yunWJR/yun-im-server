@@ -29,7 +29,7 @@ public class WsApiServiceImpl {
 
         HttpEntity<ClientUserDto> request = new HttpEntity<>(dto, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/clientUser/addClientUser"),
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/clientUser/add"),
                 HttpMethod.POST, request, String.class);
 
         BaseRstBeanT<ClientUserVo> rst = JsonHelper.toObjType(response.getBody(),
@@ -41,13 +41,13 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public ClientUserLoginVo clientUserLogin(String clientId, String platform) {
+    public ClientUserLoginVo clientUserLogin(String extraUserId, String platform) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<String> request = new HttpEntity<>(headers);
 
         ResponseEntity<String> response = restTemplate.exchange(httpUrl(
-                String.format("v1/api/clientUser/clientUserLogin/%s/%s", clientId, platform)),
+                String.format("v1/api/clientUser/login/%s/%s", extraUserId, platform)),
                 HttpMethod.POST, request, String.class);
 
         BaseRstBeanT<ClientUserLoginVo> rst = JsonHelper.toObjType(response.getBody(),
@@ -81,7 +81,7 @@ public class WsApiServiceImpl {
 
         HttpEntity<MessageDto> request = new HttpEntity<>(dto, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/pushMessage"),
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/push"),
                 HttpMethod.POST, request, String.class);
 
         BaseRstBeanT<String> rst = JsonHelper.toObjType(response.getBody(),

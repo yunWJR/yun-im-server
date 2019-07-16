@@ -26,10 +26,7 @@ public class PushServiceImpl implements PushService {
 
     @Override
     public void pushMessage(ConversationType type, Long cvId, String data, List<IgnoreUserPlatformDto> ignoreList) {
-        MessageDto dto = new MessageDto();
-        dto.setIgnoreList(ignoreList);
-        dto.setClientGroupId(cvId.toString());
-        dto.setContentJson(data);
+        MessageDto dto = MessageDto.newItem(type, cvId, data, ignoreList);
 
         wsApiService.pushMessage(dto);
     }

@@ -4,8 +4,6 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.yun.base.Util.JrpUtil;
 import com.yun.base.module.Bean.RstBeanException;
-import com.yun.base.token.AuthTokenPayload;
-import com.yun.base.token.AuthTokenUtil;
 import com.yun.yunimserver.module.BaseServiceImpl;
 import com.yun.yunimserver.module.imservice.dtovo.*;
 import com.yun.yunimserver.module.imservice.entity.ConversationMessage;
@@ -65,8 +63,7 @@ public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
     @Override
     @Transactional
     public ConversationVo createGroupChat(HashSet<Long> userIds) {
-        AuthTokenPayload token = AuthTokenUtil.getThreadLocalToken();
-        Long userId = Long.valueOf(token.getUserId());
+        User lgUser = RequestUtil.getLoginUser();
 
         if (userIds.size() < 3) {
             throwCommonError("人数不够，无法创建群");
@@ -86,25 +83,23 @@ public class GroupServiceImpl extends BaseServiceImpl implements GroupService {
             throwCommonError("用户信息错误");
         }
 
-        ConversationGroup gp = new ConversationGroup(userId);
+        ConversationGroup gp = new ConversationGroup(lgUser.getId());
         conversationGroupJpa.save(gp);
 
         List<ConversationGroupUserRl> userRlList = new ArrayList<>();
 
-        List<String> clientUserIds = new ArrayList<>();
+        List<String> extraUserId = new ArrayList<>();
 
         for (Long uId : userIds) {
             userRlList.add(new ConversationGroupUserRl(gp.getId(), uId));
 
-            clientUserIds.add(uId.toString());
+            extraUserId.add(uId.toString());
         }
         conversationGroupUserRlJpa.saveAll(userRlList);
 
         ConversationVo cvVo = new ConversationVo(gp);
 
-        WsConversationDto wsDto = new WsConversationDto();
-        wsDto.setClientGroupId(gp.getId().toString());
-        wsDto.setClientUserId(clientUserIds);
+        WsConversationDto wsDto = WsConversationDto.newItem(ConversationType.Group, gp.getId(), extraUserId);
         WsConversationVo vo = wsApiService.createConversation(wsDto);
 
         return cvVo;
