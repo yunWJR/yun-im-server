@@ -35,7 +35,7 @@ public enum BaseRstModuleType {
     /**
      * enum 构造方法 -private
      * @param module module
-     * @param remark remark
+     * @param remark addRemark
      */
     private BaseRstModuleType(Integer module, String remark) {
         this.module = module;
@@ -80,8 +80,8 @@ public enum BaseRstModuleType {
     }
 
     /**
-     * Gets remark.
-     * @return the remark
+     * Gets addRemark.
+     * @return the addRemark
      */
     public String getRemark() {
         return remark;
@@ -92,8 +92,8 @@ public enum BaseRstModuleType {
     // region --Public method
 
     /**
-     * Sets remark.
-     * @param remark the remark
+     * Sets addRemark.
+     * @param remark the addRemark
      */
     public void setRemark(String remark) {
         this.remark = remark;

@@ -32,16 +32,16 @@ public class UserInfo {
     private String remark;
 
     /**
-     * Gets remark.
-     * @return the remark
+     * Gets addRemark.
+     * @return the addRemark
      */
     public String getRemark() {
         return remark;
     }
 
     /**
-     * Sets remark.
-     * @param remark the remark
+     * Sets addRemark.
+     * @param remark the addRemark
      */
     public void setRemark(String remark) {
         this.remark = remark;

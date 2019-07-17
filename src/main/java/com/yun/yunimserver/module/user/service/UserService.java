@@ -33,7 +33,7 @@ public interface UserService {
      * @param acct the acct
      * @return the base rst bean
      */
-    User register(UserAcct acct);
+    User register(UserAcct acct, String nickName, String phone);
 
     /**
      * Gets user.

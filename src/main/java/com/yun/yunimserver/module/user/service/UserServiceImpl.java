@@ -73,8 +73,18 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
     }
 
     @Override
-    public User register(UserAcct acct) {
+    public User register(UserAcct acct, String nickName, String phone) {
         User newUs = new User(acct);
+
+        if (nickName != null) {
+            newUs.getUserInfo().setNickName(nickName);
+        } else {
+            newUs.getUserInfo().setNickName(acct.getName());
+        }
+
+        if (phone != null) {
+            newUs.getUserInfo().setNickName(phone);
+        }
 
         // user name 不重复
         if (userJpa.existsByUserAcctName(newUs.getUserAcct().getName())) {

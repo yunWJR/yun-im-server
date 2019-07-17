@@ -20,17 +20,14 @@ public class User extends BaseEntityWithGlIdDateCreator {
     // region --Field
 
     @Embedded
-    @JsonUnwrapped // 打开包装
+    @JsonUnwrapped
     private UserAcct userAcct;
 
     @Column
     private String token;
 
-    @Column(nullable = false)
-    private Integer userType = UserType.None.getCode(); // 默认值
-
     @Embedded
-    @JsonUnwrapped // 打开包装
+    @JsonUnwrapped
     private UserInfo userInfo;
 
     /**
@@ -48,22 +45,6 @@ public class User extends BaseEntityWithGlIdDateCreator {
      */
     public User() {
         userInfo = new UserInfo();
-    }
-
-    /**
-     * Instantiates a new User.
-     * @param id       the pkId
-     * @param acct     the acct
-     * @param userType the user itemType
-     * @param userInfo the user info
-     */
-    // 用户部分查询
-    public User(Long id, UserAcct acct, Integer userType, UserInfo userInfo) {
-        this.setId(id);
-        this.userAcct = acct;
-        this.userAcct.setPws(null); // 不显示密码
-        this.userType = userType;
-        this.userInfo = userInfo;
     }
 
     /**

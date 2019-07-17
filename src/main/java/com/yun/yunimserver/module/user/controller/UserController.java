@@ -8,9 +8,8 @@ import com.yun.yunimserver.module.user.entity.UserAcct;
 import com.yun.yunimserver.module.user.entity.UserInfo;
 import com.yun.yunimserver.module.user.service.UserService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,12 +53,12 @@ public class UserController {
      */
     @NoNeedAccessAuthentication
     @RequestMapping(value = {"/register"}, method = RequestMethod.POST)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "acct", value = "帐号、密码", required = true, dataType = "UserAcct")
-    })
     @ApiOperation(value = "注册用户", notes = "")
-    public BaseRstBeanT<User> register(@RequestBody UserAcct acct) {
-        User user = userSv.register(acct);
+    public BaseRstBeanT<User> register(
+            @ApiParam("帐号") @RequestBody UserAcct acct,
+            @ApiParam("nickName") @RequestParam @NotNull String nickName,
+            @ApiParam("phone") @RequestParam @NotNull String phone) {
+        User user = userSv.register(acct, nickName, phone);
 
         return new BaseRstBeanT<>(user);
     }
@@ -72,12 +71,10 @@ public class UserController {
      */
     @NoNeedAccessAuthentication
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "姓名", required = true, dataType = "string"),
-            @ApiImplicitParam(name = "pws", value = "密码", required = true, dataType = "string")
-    })
     @ApiOperation(value = "登录", notes = "")
-    public BaseRstBeanT<UserVo> login(@RequestParam @NotNull String name, @RequestParam @NotNull String pws) {
+    public BaseRstBeanT<UserVo> login(
+            @ApiParam("帐号") @RequestParam @NotNull String name,
+            @ApiParam("密码") @RequestParam @NotNull String pws) {
 
         UserVo user = userSv.login(name, pws);
 
@@ -102,9 +99,8 @@ public class UserController {
      * @return the object
      */
     @RequestMapping(value = {"/updateUserInfo"}, method = RequestMethod.POST)
-    @ApiImplicitParam(name = "info", value = "用户数据数据", required = true, dataType = "UserInfo")
     @ApiOperation(value = "更新用户信息", notes = "")
-    public BaseRstBeanT<User> updateUserInfo(@RequestBody UserInfo info) {
+    public BaseRstBeanT<User> updateUserInfo(@ApiParam("用户数据数据") @RequestBody UserInfo info) {
         User user = userSv.updateUserInfo(info);
 
         return new BaseRstBeanT<>(user);

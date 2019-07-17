@@ -1,9 +1,11 @@
 package com.yun.yunimserver.module.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotBlank;
 
 /**
  * The itemType User acct.
@@ -16,11 +18,14 @@ public class UserAcct {
     // region --Field
 
     @Column(nullable = false, unique = true) // 不能重复
-    @Length(min = 0, max = 100)
+    @Length(min = 1, max = 100)
+    @NotBlank
     private String name;
 
     @Column(nullable = false)
-    @Length(min = 0, max = 100)
+    @Length(min = 1, max = 100)
+    @NotBlank
+    @JsonIgnore
     private String pws;
 
     // endregion
