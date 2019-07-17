@@ -6,6 +6,8 @@ import com.yun.yunimserver.module.friend.dtovo.NewFriendCheckDto;
 import com.yun.yunimserver.module.friend.dtovo.NewFriendDto;
 import com.yun.yunimserver.module.friend.dtovo.NewFriendVo;
 import com.yun.yunimserver.module.friend.service.NewFriendServerImpl;
+import com.yun.yunimserver.module.user.entity.User;
+import com.yun.yunimserver.module.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,17 @@ import java.util.List;
 public class NewFriendController {
     @Autowired
     private NewFriendServerImpl newFriendServer;
+
+    @Autowired
+    private UserService userSv;
+
+    @RequestMapping(value = "users", method = RequestMethod.GET)
+    @ApiOperation(value = "获取所有用户", notes = "")
+    public BaseRstBeanT<List<User>> users() {
+        List<User> users = userSv.getAllUser();
+
+        return new BaseRstBeanT<>(users);
+    }
 
     @ApiOperation(value = "添加朋友", notes = "")
     @PostMapping(value = {"/addNewFriend"})
