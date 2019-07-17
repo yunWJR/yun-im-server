@@ -27,7 +27,7 @@ public class AuthTokenPayload {
 
     /**
      * Instantiates a new Auth token payload.
-     * @param userId the userservice pkId
+     * @param userId the user pkId
      */
     public AuthTokenPayload(String userId) {
         this.userId = userId;
@@ -43,7 +43,7 @@ public class AuthTokenPayload {
 
     /**
      * Instantiates a new Auth token payload.
-     * @param userId the userservice pkId
+     * @param userId the user pkId
      * @param claims the claims
      */
     public AuthTokenPayload(String userId, Map<String, Object> claims) {
@@ -60,16 +60,16 @@ public class AuthTokenPayload {
     // region --Getter and Setter
 
     /**
-     * Gets userservice pkId.
-     * @return the userservice pkId
+     * Gets user pkId.
+     * @return the user pkId
      */
     public String getUserId() {
         return userId;
     }
 
     /**
-     * Sets userservice pkId.
-     * @param userId the userservice pkId
+     * Sets user pkId.
+     * @param userId the user pkId
      */
     public void setUserId(String userId) {
         this.userId = userId;

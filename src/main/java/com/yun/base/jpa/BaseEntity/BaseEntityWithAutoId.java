@@ -7,7 +7,7 @@ import javax.persistence.MappedSuperclass;
 
 /**
  * The itemType Base entity with auto pkId.
- * @Description: userservice auto pkId
+ * @Description: user auto pkId
  * @Author: yun
  * @CreatedOn: 2018 /5/28 09:51.
  */

@@ -1,6 +1,6 @@
 package com.yun.yunimserver.wsapi.DtoVo;
 
-import com.yun.yunimserver.module.imservice.entity.ConversationType;
+import com.yun.yunimserver.module.conversation.entity.ConversationType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

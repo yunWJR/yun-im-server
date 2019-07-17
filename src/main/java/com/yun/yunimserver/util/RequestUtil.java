@@ -3,7 +3,7 @@ package com.yun.yunimserver.util;
 import com.yun.base.module.Bean.BaseRstCodeType;
 import com.yun.base.module.Bean.RstBeanException;
 import com.yun.base.token.HeaderThreadLocal;
-import com.yun.yunimserver.module.userservice.entity.User;
+import com.yun.yunimserver.module.user.entity.User;
 
 /**
  * @author: yun

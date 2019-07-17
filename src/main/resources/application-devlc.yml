@@ -32,7 +32,7 @@ spring:
     format_sql: true
 server:
   port: 7102
-  name: imservice
+  name: conversation
   tomcat:
     uri-encoding: UTF-8
     max-threads: 10000

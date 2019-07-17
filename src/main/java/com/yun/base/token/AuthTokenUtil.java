@@ -75,7 +75,7 @@ public class AuthTokenUtil {
 
     /**
      * Create token string.
-     * @param userId the userservice pkId
+     * @param userId the user pkId
      * @return the string
      */
     public String createToken(String userId) {
