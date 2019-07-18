@@ -20,7 +20,7 @@ public class User extends BaseEntityWithGlIdDateCreator {
     // region --Field
 
     @Embedded
-    @JsonUnwrapped
+    @JsonIgnore
     private UserAcct userAcct;
 
     @Column

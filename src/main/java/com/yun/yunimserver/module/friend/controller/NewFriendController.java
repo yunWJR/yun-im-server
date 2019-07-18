@@ -6,7 +6,7 @@ import com.yun.yunimserver.module.friend.dtovo.NewFriendCheckDto;
 import com.yun.yunimserver.module.friend.dtovo.NewFriendDto;
 import com.yun.yunimserver.module.friend.dtovo.NewFriendVo;
 import com.yun.yunimserver.module.friend.service.NewFriendServerImpl;
-import com.yun.yunimserver.module.user.entity.User;
+import com.yun.yunimserver.module.user.dtovo.UserVo;
 import com.yun.yunimserver.module.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,8 +32,8 @@ public class NewFriendController {
 
     @RequestMapping(value = "users", method = RequestMethod.GET)
     @ApiOperation(value = "获取所有用户", notes = "")
-    public BaseRstBeanT<List<User>> users() {
-        List<User> users = userSv.getAllUser();
+    public BaseRstBeanT<List<UserVo>> users() {
+        List<UserVo> users = userSv.getAllUser();
 
         return new BaseRstBeanT<>(users);
     }

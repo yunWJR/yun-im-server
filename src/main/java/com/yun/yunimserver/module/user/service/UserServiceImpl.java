@@ -1,5 +1,6 @@
 package com.yun.yunimserver.module.user.service;
 
+import com.querydsl.core.types.Projections;
 import com.yun.base.Util.ObjectUtil;
 import com.yun.base.jpa.Repository.RepositoryHelper;
 import com.yun.base.module.Bean.BaseRstBeanHelper;
@@ -49,11 +50,11 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
     // }
 
     @Override
-    public List<User> getAllUser() {
-        // AuthTokenPayload token = AuthTokenUtil.getThreadLocalToken();
-        // userUtil.checkAccess(token, UserType.Admin);
-
-        List<User> userList = userJpa.findAll();
+    public List<UserVo> getAllUser() {
+        QUser qUser = QUser.user;
+        List<UserVo> userList = queryFactory.select(Projections.constructor(UserVo.class, qUser))
+                .from(qUser)
+                .fetch();
 
         return userList;
     }

@@ -19,7 +19,7 @@ public interface UserService {
      * Gets all user.
      * @return the all user
      */
-    List<User> getAllUser();
+    List<UserVo> getAllUser();
 
     /**
      * Update base rst bean.

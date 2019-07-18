@@ -56,8 +56,8 @@ public class UserController {
     @ApiOperation(value = "注册用户", notes = "")
     public BaseRstBeanT<User> register(
             @ApiParam("帐号") @RequestBody UserAcct acct,
-            @ApiParam("nickName") @RequestParam @NotNull String nickName,
-            @ApiParam("phone") @RequestParam @NotNull String phone) {
+            @ApiParam("nickName") @RequestParam(required = false) String nickName,
+            @ApiParam("phone") @RequestParam(required = false) String phone) {
         User user = userSv.register(acct, nickName, phone);
 
         return new BaseRstBeanT<>(user);
@@ -87,8 +87,8 @@ public class UserController {
      */
     @RequestMapping(value = "users", method = RequestMethod.GET)
     @ApiOperation(value = "获取所有用户", notes = "")
-    public BaseRstBeanT<List<User>> users() {
-        List<User> users = userSv.getAllUser();
+    public BaseRstBeanT<List<UserVo>> users() {
+        List<UserVo> users = userSv.getAllUser();
 
         return new BaseRstBeanT<>(users);
     }

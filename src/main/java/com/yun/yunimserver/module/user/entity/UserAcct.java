@@ -1,6 +1,5 @@
 package com.yun.yunimserver.module.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -25,7 +24,6 @@ public class UserAcct {
     @Column(nullable = false)
     @Length(min = 1, max = 100)
     @NotBlank
-    @JsonIgnore
     private String pws;
 
     // endregion

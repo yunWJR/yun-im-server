@@ -17,10 +17,17 @@ public class UserVo {
     @JsonUnwrapped
     private User user;
 
+    private String name;
+
     private ClientUserLoginVo wsPara;
 
     public UserVo(User us, ClientUserLoginVo vo) {
-        this.user = us;
+        this(us);
         this.wsPara = vo;
+    }
+
+    public UserVo(User us) {
+        this.user = us;
+        this.name = us.getUserAcct().getName();
     }
 }
