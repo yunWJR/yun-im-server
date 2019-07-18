@@ -52,7 +52,7 @@ public interface UserService {
      */
     UserVo login(String name, String pws);
 
-    User getUserInfo();
+    UserVo getUserInfo();
 
     User checkTokenUser(String tokenStr, HttpServletRequest request);
 }

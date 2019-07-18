@@ -26,6 +26,10 @@ public class User extends BaseEntityWithGlIdDateCreator {
     @Column
     private String token;
 
+    @Column(length = 200)
+    @JsonIgnore
+    private String wsPath;
+
     @Embedded
     @JsonUnwrapped
     private UserInfo userInfo;

@@ -19,11 +19,11 @@ public class UserVo {
 
     private String name;
 
-    private ClientUserLoginVo wsPara;
+    private String wsPath;
 
     public UserVo(User us, ClientUserLoginVo vo) {
         this(us);
-        this.wsPara = vo;
+        this.wsPath = vo.getWsPath();
     }
 
     public UserVo(User us) {

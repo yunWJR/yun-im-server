@@ -112,8 +112,8 @@ public class UserController {
      */
     @RequestMapping(value = {"/getUserInfo"}, method = RequestMethod.GET)
     @ApiOperation(value = "获取用户信息", notes = "")
-    public BaseRstBeanT<User> getUserInfo() {
-        User user = userSv.getUserInfo();
+    public BaseRstBeanT<UserVo> getUserInfo() {
+        UserVo user = userSv.getUserInfo();
 
         return new BaseRstBeanT<>(user);
     }

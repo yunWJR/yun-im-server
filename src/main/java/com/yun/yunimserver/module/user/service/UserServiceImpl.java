@@ -139,19 +139,26 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 
         us = this.updateToken(us);
 
-        us = userJpa.save(us);
-
         ClientUserLoginVo vo = wsApiService.clientUserLogin(us.getId().toString(),
                 RequestUtil.getDeviceType().toString());
 
-        return new UserVo(us, vo);
+        us.setWsPath(vo.getWsPath());
+
+        us = userJpa.save(us);
+
+        UserVo userVo = new UserVo(us, vo);
+
+        return userVo;
     }
 
     @Override
-    public User getUserInfo() {
+    public UserVo getUserInfo() {
         User lgUser = RequestUtil.getLoginUser();
 
-        return lgUser;
+        UserVo userVo = new UserVo(lgUser);
+        userVo.setWsPath(lgUser.getWsPath());
+
+        return userVo;
     }
 
     private User updateToken(User us) {
